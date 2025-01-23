@@ -80,6 +80,7 @@ ormconfig.ts               # Database TypeORM configuration
 ---
 
 ## Endpoints
+**Base URL**: `http://localhost:3500/api/v1`
 
 ### Authentication Endpoints
 1. **POST** `/auth/signup`
@@ -104,7 +105,7 @@ ormconfig.ts               # Database TypeORM configuration
        "password": "password"
      }
      ```
-   - **Response**: Returns a JWT access token.
+   - **Response**: Returns a user data and access token.
 
 3. **POST** `/auth/password`
    - **Purpose**: Change the password for the authenticated user.
@@ -126,10 +127,12 @@ ormconfig.ts               # Database TypeORM configuration
 
 5. **GET** `/users`
    - **Purpose**: Retrieve a list of all users (ADMIN only).
-   - **Query Parameters** (optional):
-     - `?page` - Specify the page number for pagination.
-     - `?limit` - Specify the number of results per page.
+   - **pagination** for listing endpoints.
+      - **Query Parameters** (optional):
+        - `?page` - Specify the page number for pagination.
+        - `?limit` - Specify the number of results per page.
    - **Response**: Returns a paginated list of users.
+   
 
 6. **GET** `/users/:id`
    - **Purpose**: Retrieve details of a specific user.
@@ -158,6 +161,14 @@ ormconfig.ts               # Database TypeORM configuration
    - **Special Rule**: Users cannot delete themselves; appropriate error response is returned.
 
 ---
+
+- Each of the endpoints will return one or more of the following status codes:
+  - **200 OK**: For successful GET, PATCH, or DELETE operations.
+  - **201 Created**: For successful POST operations.
+  - **400 Bad Request**: For invalid inputs or requests.
+  - **401 Unauthorized**: For missing or invalid authentication tokens.
+  - **403 Forbidden**: For unauthorized actions.
+  - **404 Not Found**: When the resource (user) does not exist.
 
 ## Database
 - The API uses **MySQL** to store user data, connected via **TypeORM**.
