@@ -3,7 +3,29 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ---
-# Description
+
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+  - [User Model](#user-model)
+  - [Project Structure](#project-structure)
+- [Role-based Access Control](#role-based-access-control)
+- [Key Access Rules](#key-access-rules)
+- [API Specification](#api-specification)
+  - [Authentication Endpoints](#authentication-endpoints)
+  - [User Endpoints](#user-endpoints)
+- [Database](#database)
+- [Frameworks and Libraries](#frameworks-and-libraries)
+- [Installation and Running the Application](#installation-and-running-the-application)
+- [How to Test](#how-to-test)
+- [Access and Testing of API Endpoints Documentation](#access-and-testing-of-api-endpoints-documentation)
+- [Test Coverage Report](#test-coverage-report)
+- [Author](#author-💥)
+
+---
+
+## Description
 
 This project is a RESTful API for managing users with robust role-based access control (RBAC). It supports creating, reading, updating, and deleting users, while ensuring proper authorization and adhering to HTTP/REST best practices and the JSON:API specification. 
 
@@ -23,7 +45,7 @@ The `User` model includes the following fields:
 }
 ```
 
-### Project Structure
+## Project Structure
 
 ```bash
 src/
@@ -186,7 +208,7 @@ ormconfig.ts               # Database TypeORM configuration
 
 ---
 
-### Installation and Running the Application
+## Installation and Running the Application
 
 - After cloning the repository, create a `.env` file from `.env.sample` and set your local `.env.` variable(s).
 
@@ -194,7 +216,7 @@ ormconfig.ts               # Database TypeORM configuration
 cp .env.sample .env
 ```
 
-### How to Test
+## How to Test
 
 1. `npm install` - Installs dependencies.
 2. `npm run start:dev` - Starts the server in development mode.
@@ -202,14 +224,14 @@ cp .env.sample .env
 4. `npm run test:unit` - Runs only unit tests.
 5. `npm run test:int` - Runs only integration tests.
 
-# Access and Testing of API Endpoints Documentation.
+## Access and Testing of API Endpoints Documentation.
 
 - Swagger documentation can be accessed on this localhost link [Swagger Docs Link](http://localhost:3500/api/v1/docs) when the server is running.
 
 ![Swagger docs image](./docs/swaggar.png)
 
 ---
-# Test Coverage Report
+## Test Coverage Report
 
 - The test coverage report for bot unit and integration tests is shown below after running the test suite.
 
@@ -217,6 +239,6 @@ cp .env.sample .env
 
 ---
 
-# Author 💥:
+## Author 💥:
 
 Francis Nnamdi Abonyi
