@@ -42,6 +42,7 @@ export class UsersRepository {
     const [data, total] = await this.usersRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
+      select: ['id', 'name', 'email', 'role', 'created_at', 'updated_at'],
     });
 
     return new PaginatedResultDto<Users>(data, total);

@@ -47,7 +47,7 @@ The `User` model includes the following fields:
 }
 ```
 
-## Project Structure
+### Project Structure
 
 ```bash
 src/
@@ -222,7 +222,7 @@ ormconfig.ts              # Database TypeORM configuration
             },
             "links": {
                 "prev": "/users?page=1&limit=2",
-                "next": "/users?page=2&limit=2"
+                "next": "/api/v1/users?page=2&limit=2"
             }
         }
 
@@ -350,7 +350,7 @@ npm run start:dev
 
 - The test coverage report for both unit and integration tests is shown below after running the test suite:
 
-![Test coverage report image](./docs/tests-coverage.png)
+![Test coverage report image](./docs/test-coverage.png)
 
 ---
 

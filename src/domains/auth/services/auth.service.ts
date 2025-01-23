@@ -14,10 +14,6 @@ import { CreateTokenResponse } from '../types/auth.type';
 import { SignInDto } from '../dto/input/signin.input';
 import { UsersService } from '../../users/services/users.service';
 import { ChangePasswordDto } from '../dto/input/change-password.input';
-import {
-  // SafeUserResultDto,
-  UserResultDto,
-} from '../../users/dto/output/user.result.output';
 
 @Injectable()
 export class AuthService {
@@ -50,8 +46,13 @@ export class AuthService {
       );
 
       const result = {
-        ...savedUser,
+        id: savedUser.id,
+        name: savedUser.name,
+        email: savedUser.email,
+        role: savedUser.role,
         access_token,
+        created_at: savedUser.created_at,
+        updated_at: savedUser.updated_at,
       };
 
       return result;
@@ -128,11 +129,11 @@ export class AuthService {
   async changePassword(
     userId: string,
     Input: ChangePasswordDto,
-  ): Promise<UserResultDto> {
+  ): Promise<string> {
     try {
       const { oldPassword, newPassword } = Input;
 
-      const user = await this.usersService.findUserById(userId);
+      const user = await this.usersService.findById(userId);
 
       const isPasswordMatch = await argon.verify(user.password, oldPassword);
 
@@ -146,7 +147,9 @@ export class AuthService {
         password: hashedPassword,
       });
 
-      return result;
+      if (result) {
+        return 'Password updated successfully!';
+      }
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });
       throw error;
