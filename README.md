@@ -1,11 +1,34 @@
-
 [![npm version](https://badge.fury.io/js/nestjs.svg)](https://badge.fury.io/js/nestjs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ---
-# Description
 
-This project is a RESTful API for managing users with robust role-based access control (RBAC). It supports creating, reading, updating, and deleting users, while ensuring proper authorization and adhering to HTTP/REST best practices and the JSON:API specification. 
+# Leo-Vegas
+
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+  - [User Model](#user-model)
+  - [Project Structure](#project-structure)
+- [Role-based Access Control](#role-based-access-control)
+- [Key Access Rules](#key-access-rules)
+- [API Specification](#api-specification)
+  - [Authentication Endpoints](#authentication-endpoints)
+  - [User Endpoints](#user-endpoints)
+- [Database](#database)
+- [Frameworks and Libraries](#frameworks-and-libraries)
+- [Installation and Running the Application](#installation-and-running-the-application)
+- [How to Test](#how-to-test)
+- [Access and Testing of API Endpoints Documentation](#access-and-testing-of-api-endpoints-documentation)
+- [Test Coverage Report](#test-coverage-report)
+- [Author](#author-)
+
+---
+
+## Description
+
+This project is a RESTful API for managing users with robust role-based access control (RBAC). It supports creating, reading, updating, and deleting users while ensuring proper authorization and adhering to HTTP/REST best practices and the JSON:API specification.
 
 ---
 
@@ -13,6 +36,7 @@ This project is a RESTful API for managing users with robust role-based access c
 
 ### User Model
 The `User` model includes the following fields:
+
 ```json
 {
   "name": "John Doe",
@@ -34,54 +58,58 @@ common/               # Common utilities
   ├── base.entity.ts      # Base entity class
   ├── constants.ts        # Constants for tables and roles
 domains/
-  ├── auth/                 # Authentication module
-  ├── users/                # User module
+  ├── auth/               # Authentication module
+  ├── users/              # User module
 swagger/                 
-  ├── constant.ts           # Constants used in the swagger documentation
-  ├── index.ts              # Swagger documentation configuration
-├── app.module.ts           # Main application module
-├── app.service.ts          # Main application service
-├── main.ts                 # Entry point for the application
+  ├── constant.ts         # Constants used in the swagger documentation
+  ├── index.ts            # Swagger documentation configuration
+├── app.module.ts         # Main application module
+├── app.service.ts        # Main application service
+├── main.ts               # Entry point for the application
 test/
-  ├── integration/           # Integration test cases
-  ├── unit/                  # Unit test cases
-.env.example               # Environment variable template
-ormconfig.ts               # Database TypeORM configuration
-
+  ├── integration/        # Integration test cases
+  ├── unit/               # Unit test cases
+.env.example              # Environment variable template
+ormconfig.ts              # Database TypeORM configuration
 ```
+
+---
 
 ## Role-based Access Control
 
-### USER:
-- Can view their own details.
-- Can update their own details, excluding password, email and role changes.
-- Can update their own password via a change of password endpoint. 
-- Can not delete themselves.
-
-### ADMIN:
-- Can view details of any user.
-- Can update details and roles of any user.
-- Can delete other users (cannot delete themselves).
+### Roles and Permissions
+| Role   | Action                                   | Permission                  |
+|--------|------------------------------------------|-----------------------------|
+| USER   | View their own details                  | ✅ Yes                      |
+|        | Update their details (excluding email)  | ✅ Yes                      |
+|        | Change their password                   | ✅ Yes                      |
+|        | Delete themselves                       | ❌ No                       |
+| ADMIN  | View any user details                   | ✅ Yes                      |
+|        | Update any user details and roles       | ✅ Yes                      |
+|        | Delete other users                      | ✅ Yes                      |
+|        | Delete themselves                       | ❌ No                       |
 
 ---
 
 ## Key Access Rules
-- No role can delete themselves.
-- Users attempting unauthorized actions receive appropriate HTTP status codes.
-- Admin actions on non-existent users return proper HTTP status codes.
+
+- **Self-deletion:** No role can delete themselves.
+- **Unauthorized actions:** Users attempting unauthorized actions receive appropriate HTTP status codes.
+- **Non-existent users:** Admin actions on non-existent users return proper HTTP status codes.
 
 ---
 
 ## API Specification
+
+### General Guidelines
 - **JSON:API** specification is followed.
-- Proper validation of input data is implemented using **class-validator** and **zod**
+- Proper validation of input data is implemented using **class-validator** and **zod**.
 - Comprehensive error handling is included.
 
----
-
-## HTTP Best Practices for Endpoints
+**Base URL**: `http://localhost:3500/api/v1`
 
 ### Authentication Endpoints
+
 1. **POST** `/auth/signup`
    - **Purpose**: Register a new user.
    - **Request Body**:
@@ -93,7 +121,18 @@ ormconfig.ts               # Database TypeORM configuration
        "role": "USER" | "ADMIN"
      }
      ```
-   - **Response**: Returns the created user's details.
+   - **Response**:  
+    ```json
+     {
+       "id": "b61c526e-55b7-434b-8d09-ae0d776533e0",
+       "name": "John Doe",
+       "email": "johndoe@example.com",
+       "role": "USER" | "ADMIN",
+       "created_at": "2021-10-10T12:00:00.000Z",
+       "updated_at": "2021-10-10T12:00:00.000Z",
+       "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+     }
+     ```
 
 2. **POST** `/auth/signin`
    - **Purpose**: Authenticate a user and issue an access token.
@@ -104,7 +143,18 @@ ormconfig.ts               # Database TypeORM configuration
        "password": "password"
      }
      ```
-   - **Response**: Returns a JWT access token.
+   - **Response**: 
+       ```json
+        {
+            "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "role": "USER" | "ADMIN",
+            "created_at": "2021-10-10T12:00:00.000Z",
+            "updated_at": "2021-10-10T12:00:00.000Z",
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+     ```
 
 3. **POST** `/auth/password`
    - **Purpose**: Change the password for the authenticated user.
@@ -116,26 +166,81 @@ ormconfig.ts               # Database TypeORM configuration
      }
      ```
    - **Response**: Success message indicating the password has been updated.
-
+     ```json
+            {
+                "message": "Password updated successfully!"
+            }
+        ```
 ---
 
 ### User Endpoints
+
 4. **GET** `/users/me`
    - **Purpose**: Retrieve details of the currently authenticated user.
-   - **Response**: Returns the user’s details.
+   - **Response**: 
+          ```json
+        {
+            "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "role": "USER" | "ADMIN",
+            "created_at": "2021-10-10T12:00:00.000Z",
+            "updated_at": "2021-10-10T12:00:00.000Z"
+        }
+     ```
 
 5. **GET** `/users`
    - **Purpose**: Retrieve a list of all users (ADMIN only).
    - **Query Parameters** (optional):
      - `?page` - Specify the page number for pagination.
      - `?limit` - Specify the number of results per page.
-   - **Response**: Returns a paginated list of users.
+   - **Response**: 
+        ```json
+        {
+            "data": [
+                {
+                    "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+                    "name": "John Doe",
+                    "email": "johndoe@example.com",
+                    "role": "USER",
+                    "created_at": "2021-10-10T12:00:00.000Z",
+                    "updated_at": "2021-10-10T12:00:00.000Z"
+                },
+                {
+                    "id": "432fde67-0076-4f0b-aba6-7b052975c02e",
+                    "name": "Admin User",
+                    "email": "adin@example.com",
+                    "role": "ADMIN",
+                    "created_at": "2021-10-10T12:00:00.000Z",
+                    "updated_at": "2021-10-10T12:00:00.000Z"
+                }
+            ],
+            "meta": {
+                "total": 2,
+                "page": 2,
+                "limit": 2
+            },
+            "links": {
+                "prev": "/users?page=1&limit=2",
+                "next": "/api/v1/users?page=2&limit=2"
+            }
+        }
+
 
 6. **GET** `/users/:id`
    - **Purpose**: Retrieve details of a specific user.
    - **Path Parameter**:
      - `:id` - ID of the user to fetch.
-   - **Response**: Returns the user’s details.
+   - **Response**: 
+        ```json
+        {
+            "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "role": "USER" | "ADMIN",
+            "created_at": "2021-10-10T12:00:00.000Z",
+            "updated_at": "2021-10-10T12:00:00.000Z"
+        }
 
 7. **PATCH** `/users/:id`
    - **Purpose**: Update details of a specific user.
@@ -148,7 +253,12 @@ ormconfig.ts               # Database TypeORM configuration
        "role": "USER" // ADMIN only
      }
      ```
-   - **Response**: Returns the updated user details.
+   - **Response**: Returns Success message indicating the user detail has been updated.
+     ```json
+            {
+                "message": "User updated successfully!"
+            }
+        ```
 
 8. **DELETE** `/users/:id`
    - **Purpose**: Delete a specific user (ADMIN only).
@@ -157,22 +267,18 @@ ormconfig.ts               # Database TypeORM configuration
    - **Response**: Success message indicating the user has been deleted.
    - **Special Rule**: Users cannot delete themselves; appropriate error response is returned.
 
+### Status Codes
+- **200 OK**: For successful GET, PATCH, or DELETE operations.
+- **201 Created**: For successful POST operations.
+- **400 Bad Request**: For invalid inputs or requests.
+- **401 Unauthorized**: For missing or invalid authentication tokens.
+- **403 Forbidden**: For unauthorized actions.
+- **404 Not Found**: When the resource (user) does not exist.
+
 ---
 
-### Additional HTTP Best Practices
-- Use **appropriate status codes** for responses:
-  - **200 OK**: For successful GET, PATCH, or DELETE operations.
-  - **201 Created**: For successful POST operations.
-  - **400 Bad Request**: For invalid inputs or requests.
-  - **401 Unauthorized**: For missing or invalid authentication tokens.
-  - **403 Forbidden**: For unauthorized actions.
-  - **404 Not Found**: When the resource (user) does not exist.
-- Use **pagination** for listing endpoints (e.g., `/users`).
-- Include **meaningful error messages** in the response body.
-- Implement **input validation** to prevent invalid data.
-
 ## Database
-- The API uses **MySQL** to store user data, connected via **TypeORM**.
+- **MySQL** is used to store user data, connected via **TypeORM**.
 
 ---
 
@@ -187,37 +293,69 @@ ormconfig.ts               # Database TypeORM configuration
 
 ---
 
-### Installation and Running the Application
+## Installation and Running the Application
 
-- After cloning the repository, create a `.env` file from `.env.sample` and set your local `.env.` variable(s).
+- Clone the repository and navigate to the project directory:
+
+```typescript
+git clone https://github.com/AbonyiXavier/Leo-Vegas-assessment
+cd Leo-Vegas-assessment
+```
+
+- Create a `.env` file from `.env.sample` and configure environment variables:
 
 ```sh
 cp .env.sample .env
 ```
 
-### How to Test
+- Install dependencies:
 
-1. `npm install` - Installs dependencies.
-2. `npm run start:dev` - Starts the server in development mode.
-3. `npm run test` - Runs the test suite(both unit and integration tests).
-4. `npm run test:unit` - Runs only unit tests.
-5. `npm run test:int` - Runs only integration tests.
+```sh
+npm install
+```
 
-# Access and Testing of API Endpoints Documentation.
+- Start the application:
 
-- Swagger documentation can be accessed on this localhost link [Swagger Docs Link](http://localhost:3500/api/v1/docs) when the server is running.
+```sh
+npm run start:dev
+```
+---
+
+## How to Test
+
+1. Run the full test suite:
+   ```sh
+   npm run test
+   ```
+2. Run only unit tests:
+   ```sh
+   npm run test:unit
+   ```
+3. Run only integration tests:
+   ```sh
+   npm run test:int
+   ```
+
+---
+
+## Access and Testing of API Endpoints Documentation
+
+- Swagger documentation is available at [Swagger Docs](http://localhost:3500/api/v1/docs) when the server is running.
 
 ![Swagger docs image](./docs/swaggar.png)
 
 ---
-# Test Coverage Report
 
-- The test coverage report for bot unit and integration tests is shown below after running the test suite.
+## Test Coverage Report
 
-![Test coverage report image](./docs/tests-coverage.png)
+- The test coverage report for both unit and integration tests is shown below after running the test suite:
+
+![Test coverage report image](./docs/test-coverage.png)
 
 ---
 
-# Author 💥:
+## Author 💥
 
 Francis Nnamdi Abonyi
+
+
