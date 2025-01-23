@@ -122,16 +122,16 @@ ormconfig.ts              # Database TypeORM configuration
      }
      ```
    - **Response**:  
-    ```json
-     {
-       "id": "b61c526e-55b7-434b-8d09-ae0d776533e0",
-       "name": "John Doe",
-       "email": "johndoe@example.com",
-       "role": "USER" | "ADMIN",
-       "created_at": "2021-10-10T12:00:00.000Z",
-       "updated_at": "2021-10-10T12:00:00.000Z",
-       "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-     }
+      ```json
+      {
+          "id": "b61c526e-55b7-434b-8d09-ae0d776533e0",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "role": "USER" | "ADMIN",
+          "created_at": "2021-10-10T12:00:00.000Z",
+          "updated_at": "2021-10-10T12:00:00.000Z",
+          "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      }
      ```
 
 2. **POST** `/auth/signin`
@@ -146,13 +146,13 @@ ormconfig.ts              # Database TypeORM configuration
    - **Response**: 
        ```json
         {
-            "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
-            "name": "John Doe",
-            "email": "johndoe@example.com",
-            "role": "USER" | "ADMIN",
-            "created_at": "2021-10-10T12:00:00.000Z",
-            "updated_at": "2021-10-10T12:00:00.000Z",
-            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "role": "USER" | "ADMIN",
+          "created_at": "2021-10-10T12:00:00.000Z",
+          "updated_at": "2021-10-10T12:00:00.000Z",
+          "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
         }
      ```
 
@@ -167,9 +167,9 @@ ormconfig.ts              # Database TypeORM configuration
      ```
    - **Response**: Success message indicating the password has been updated.
      ```json
-            {
-                "message": "Password updated successfully!"
-            }
+      {
+        "message": "Password updated successfully!"
+      }
         ```
 ---
 
@@ -178,15 +178,15 @@ ormconfig.ts              # Database TypeORM configuration
 4. **GET** `/users/me`
    - **Purpose**: Retrieve details of the currently authenticated user.
    - **Response**: 
-          ```json
-        {
-            "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
-            "name": "John Doe",
-            "email": "johndoe@example.com",
-            "role": "USER" | "ADMIN",
-            "created_at": "2021-10-10T12:00:00.000Z",
-            "updated_at": "2021-10-10T12:00:00.000Z"
-        }
+      ```json
+      {
+          "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "role": "USER" | "ADMIN",
+          "created_at": "2021-10-10T12:00:00.000Z",
+          "updated_at": "2021-10-10T12:00:00.000Z"
+      }
      ```
 
 5. **GET** `/users`
@@ -255,9 +255,9 @@ ormconfig.ts              # Database TypeORM configuration
      ```
    - **Response**: Returns Success message indicating the user detail has been updated.
      ```json
-            {
-                "message": "User updated successfully!"
-            }
+      {
+        "message": "User updated successfully!"
+      }
         ```
 
 8. **DELETE** `/users/:id`
@@ -297,28 +297,28 @@ ormconfig.ts              # Database TypeORM configuration
 
 - Clone the repository and navigate to the project directory:
 
-```typescript
-git clone https://github.com/AbonyiXavier/Leo-Vegas-assessment
-cd Leo-Vegas-assessment
-```
+  ```typescript
+  git clone https://github.com/AbonyiXavier/Leo-Vegas-assessment
+  cd Leo-Vegas-assessment
+  ```
 
 - Create a `.env` file from `.env.sample` and configure environment variables:
 
-```sh
-cp .env.sample .env
-```
+  ```sh
+  cp .env.sample .env
+  ```
 
 - Install dependencies:
 
-```sh
-npm install
-```
+  ```sh
+  npm install
+  ```
 
 - Start the application:
 
-```sh
-npm run start:dev
-```
+  ```sh
+  npm run start:dev
+  ```
 ---
 
 ## How to Test
@@ -342,7 +342,7 @@ npm run start:dev
 
 - Swagger documentation is available at [Swagger Docs](http://localhost:3500/api/v1/docs) when the server is running.
 
-![Swagger docs image](./docs/swaggar.png)
+  ![Swagger docs image](./docs/swaggar.png)
 
 ---
 
@@ -350,7 +350,7 @@ npm run start:dev
 
 - The test coverage report for both unit and integration tests is shown below after running the test suite:
 
-![Test coverage report image](./docs/tests-coverage.png)
+  ![Test coverage report image](./docs/tests-coverage.png)
 
 ---
 
