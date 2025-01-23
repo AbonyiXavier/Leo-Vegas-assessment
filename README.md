@@ -159,18 +159,6 @@ ormconfig.ts               # Database TypeORM configuration
 
 ---
 
-### Additional HTTP Best Practices
-- Use **appropriate status codes** for responses:
-  - **200 OK**: For successful GET, PATCH, or DELETE operations.
-  - **201 Created**: For successful POST operations.
-  - **400 Bad Request**: For invalid inputs or requests.
-  - **401 Unauthorized**: For missing or invalid authentication tokens.
-  - **403 Forbidden**: For unauthorized actions.
-  - **404 Not Found**: When the resource (user) does not exist.
-- Use **pagination** for listing endpoints (e.g., `/users`).
-- Include **meaningful error messages** in the response body.
-- Implement **input validation** to prevent invalid data.
-
 ## Database
 - The API uses **MySQL** to store user data, connected via **TypeORM**.
 
