@@ -79,7 +79,7 @@ ormconfig.ts               # Database TypeORM configuration
 
 ---
 
-## HTTP Best Practices for Endpoints
+## Endpoints
 
 ### Authentication Endpoints
 1. **POST** `/auth/signup`
