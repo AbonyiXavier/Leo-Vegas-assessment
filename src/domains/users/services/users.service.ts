@@ -81,7 +81,7 @@ export class UsersService {
     }
   }
 
-  async findUserById(userId: string): Promise<Users> {
+  async findById(userId: string): Promise<Users> {
     try {
       const user = await this.usersRepository.findUserById(userId);
 
@@ -95,12 +95,36 @@ export class UsersService {
     }
   }
 
+  async findUserById(userId: string): Promise<UserResultDto> {
+    try {
+      const user = await this.usersRepository.findUserById(userId);
+
+      if (!user) {
+        throw new NotFoundException(`User with ID ${userId} not found`);
+      }
+
+      const result: UserResultDto = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      };
+
+      return result;
+    } catch (error) {
+      this.logger.error({ stack: error?.stack, message: error?.message });
+      throw error;
+    }
+  }
+
   async updateUserDetails(
     requestingUserId: string,
     targetUserId: string,
     updateData: Partial<Users>,
     role: UserRole,
-  ): Promise<UserResultDto> {
+  ): Promise<string> {
     const targetUser = await this.usersRepository.findUserById(targetUserId);
 
     if (!targetUser) {
@@ -113,11 +137,15 @@ export class UsersService {
       );
     }
 
-    return await this.usersRepository.updateUserDetails(
+    const updatedUser = await this.usersRepository.updateUserDetails(
       targetUserId,
       updateData,
       role,
     );
+
+    if (updatedUser) {
+      return 'User updated successfully!';
+    }
   }
 
   async deleteUser(

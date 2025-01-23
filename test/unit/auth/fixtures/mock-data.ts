@@ -4,6 +4,7 @@ export const mockFindUserByEmail = jest.fn();
 export const mockCreateUser = jest.fn();
 export const mockSignToken = jest.fn();
 export const mockFindUserById = jest.fn();
+export const mockFindById = jest.fn();
 export const mockUpdateUserPassword = jest.fn();
 
 export const userData = {
@@ -41,12 +42,22 @@ export const signUpAdminUserInput = {
 };
 
 export const expectedUserResponse = {
-  ...userData,
+  id: 'userId',
+  name: 'test user',
+  email: 'user@gmail.com',
+  role: UserRole.User,
+  created_at: new Date(),
+  updated_at: new Date(),
   access_token: 'token',
 };
 
 export const expectedAdminUserResponse = {
-  ...adminUserData,
+  id: 'adminUserId',
+  name: 'test user',
+  email: 'user@gmail.com',
+  role: UserRole.Admin,
+  created_at: new Date(),
+  updated_at: new Date(),
   access_token: 'token',
 };
 

@@ -19,6 +19,7 @@ import {
   expectedUserResponse,
   incorrectOldPassword,
   mockCreateUser,
+  mockFindById,
   mockFindUserByEmail,
   mockFindUserById,
   mockSignToken,
@@ -50,6 +51,7 @@ describe('AuthService Unit Tests', () => {
             createUser: mockCreateUser,
             findUserById: mockFindUserById,
             updateUserPassword: mockUpdateUserPassword,
+            findById: mockFindById,
           },
         },
         {
@@ -149,7 +151,7 @@ describe('AuthService Unit Tests', () => {
         password: hashedOldPassword,
       };
 
-      mockFindUserById.mockResolvedValueOnce(user);
+      mockFindById.mockResolvedValueOnce(user);
       mockUpdateUserPassword.mockResolvedValueOnce({
         id: userId,
         password: hashedNewPassword,
@@ -160,15 +162,12 @@ describe('AuthService Unit Tests', () => {
         newPassword,
       });
 
-      expect(mockFindUserById).toHaveBeenCalledWith(userId);
+      expect(mockFindById).toHaveBeenCalledWith(userId);
       expect(argon.verify(user.password, oldPassword)).resolves.toBeTruthy();
       expect(mockUpdateUserPassword).toHaveBeenCalledWith(userId, {
         password: expect.any(String),
       });
-      expect(result).toEqual({
-        id: userId,
-        password: hashedNewPassword,
-      });
+      expect(result).toEqual('Password updated successfully!');
     });
 
     it('should throw UnauthorizedException if the old password does not match', async () => {
@@ -177,7 +176,7 @@ describe('AuthService Unit Tests', () => {
         password: await argon.hash(oldPassword),
       };
 
-      mockFindUserById.mockResolvedValueOnce(user);
+      mockFindById.mockResolvedValueOnce(user);
 
       await expect(
         authService.changePassword(userId, {
@@ -186,13 +185,13 @@ describe('AuthService Unit Tests', () => {
         }),
       ).rejects.toThrow(UnauthorizedException);
 
-      expect(mockFindUserById).toHaveBeenCalledWith(userId);
+      expect(mockFindById).toHaveBeenCalledWith(userId);
     });
 
     it('should log an error and throw if an error occurs', async () => {
       const error = new Error('Database error');
 
-      mockFindUserById.mockRejectedValueOnce(error);
+      mockFindById.mockRejectedValueOnce(error);
 
       await expect(
         authService.changePassword(userId, {
@@ -201,7 +200,7 @@ describe('AuthService Unit Tests', () => {
         }),
       ).rejects.toThrow(error);
 
-      expect(mockFindUserById).toHaveBeenCalledWith(userId);
+      expect(mockFindById).toHaveBeenCalledWith(userId);
     });
   });
 });

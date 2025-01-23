@@ -214,7 +214,7 @@ cp .env.sample .env
 
 - The test coverage report for bot unit and integration tests is shown below after running the test suite.
 
-![Test coverage report image](./docs/test-coverage.png)
+![Test coverage report image](./docs/tests-coverage.png)
 
 ---
 
