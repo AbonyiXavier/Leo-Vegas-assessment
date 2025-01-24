@@ -130,7 +130,7 @@ export class AuthService {
       });
 
       if (result) {
-        return 'Password updated successfully!';
+        return 'Password updated successfully';
       }
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });

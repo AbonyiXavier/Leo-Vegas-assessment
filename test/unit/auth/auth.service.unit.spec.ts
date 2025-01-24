@@ -167,7 +167,7 @@ describe('AuthService Unit Tests', () => {
       expect(mockUpdateUserPassword).toHaveBeenCalledWith(userId, {
         password: expect.any(String),
       });
-      expect(result).toEqual('Password updated successfully!');
+      expect(result).toEqual('Password updated successfully');
     });
 
     it('should throw UnauthorizedException if the old password does not match', async () => {

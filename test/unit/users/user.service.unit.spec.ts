@@ -239,7 +239,7 @@ describe('UsersService Unit Tests', () => {
         UserRole.Admin,
       );
 
-      expect(result).toEqual('User updated successfully!');
+      expect(result).toEqual('User updated successfully');
     });
 
     it('should throw ForbiddenException if unauthorized', async () => {

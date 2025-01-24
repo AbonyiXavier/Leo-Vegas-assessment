@@ -28,7 +28,7 @@ export class AuthController {
   @Post('/signup')
   @ApiCreatedResponse({
     type: SignUpDto,
-    description: 'Sign up successfully!',
+    description: 'Sign up successfully',
   })
   @ApiBadRequestResponse()
   @ApiConflictResponse()
@@ -46,7 +46,7 @@ export class AuthController {
   @Post('/signin')
   @ApiOkResponse({
     type: SignInDto,
-    description: 'Signed in successfully!',
+    description: 'Signed in successfully',
   })
   @ApiUnauthorizedResponse()
   @UsePipes(
@@ -62,7 +62,7 @@ export class AuthController {
   @ApiBearerAuth('defaultBearerAuth')
   @ApiCreatedResponse({
     type: ChangePasswordDto,
-    description: 'Password changed successfully!',
+    description: 'Password changed successfully',
   })
   @ApiUnauthorizedResponse()
   @UsePipes(

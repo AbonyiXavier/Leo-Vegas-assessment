@@ -33,7 +33,7 @@ export class UsersController {
   @Get('/me')
   @ApiBearerAuth('defaultBearerAuth')
   @ApiOkResponse({
-    description: 'User detail fetched successfully!',
+    description: 'User detail fetched successfully',
   })
   async userMe(@Request() req) {
     return await this.usersService.userMe(req.user.id);
@@ -55,7 +55,7 @@ export class UsersController {
     description: 'Number of items per page (default is 10)',
   })
   @ApiOkResponse({
-    description: 'All users fetched successfully!',
+    description: 'Users fetched successfully',
   })
   async findAll(@Query('page') page?: number, @Query('limit') limit?: number) {
     const pageNumber = isNaN(Number(page)) ? 1 : Number(page);
@@ -107,7 +107,7 @@ export class UsersController {
     type: UpdateUserDto,
   })
   @ApiOkResponse({
-    description: 'Update user details successfully!',
+    description: 'User updated successfully',
   })
   @UsePipes(
     new ZodValidationPipe({

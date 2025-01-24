@@ -168,7 +168,7 @@ ormconfig.ts              # Database TypeORM configuration
    - **Response**: Success message indicating the password has been updated.
      ```json
       {
-        "message": "Password updated successfully!"
+        "message": "Password updated successfully"
       }
         ```
 ---
@@ -256,7 +256,7 @@ ormconfig.ts              # Database TypeORM configuration
    - **Response**: Returns Success message indicating the user detail has been updated.
      ```json
       {
-        "message": "User updated successfully!"
+        "message": "User updated successfully"
       }
         ```
 

@@ -127,7 +127,7 @@ export class UsersService {
     );
 
     if (updatedUser) {
-      return 'User updated successfully!';
+      return 'User updated successfully';
     }
   }
 

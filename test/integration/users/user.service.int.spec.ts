@@ -55,7 +55,7 @@ describe('UserService Integration Tests', () => {
         UserRole.User,
       );
 
-      expect(updatedUser).toBe('User updated successfully!');
+      expect(updatedUser).toBe('User updated successfully');
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
