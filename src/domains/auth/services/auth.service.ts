@@ -6,7 +6,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { SignUpDto } from '../dto/input/signup.input';
-import { AuthResultDto } from '../dto/output/auth.result.output';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
@@ -14,6 +13,8 @@ import { CreateTokenResponse } from '../types/auth.type';
 import { SignInDto } from '../dto/input/signin.input';
 import { UsersService } from '../../users/services/users.service';
 import { ChangePasswordDto } from '../dto/input/change-password.input';
+import { UserResultDto } from '../../users/dto/output/user.result.output';
+import { mapResult } from '../../../common/mapper';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +25,7 @@ export class AuthService {
     @Inject(JwtService) private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(input: SignUpDto): Promise<AuthResultDto> {
+  async signUp(input: SignUpDto): Promise<UserResultDto> {
     try {
       const { name, email, password, role } = input;
 
@@ -45,24 +46,15 @@ export class AuthService {
         savedUser.email,
       );
 
-      const result = {
-        id: savedUser.id,
-        name: savedUser.name,
-        email: savedUser.email,
-        role: savedUser.role,
-        access_token,
-        created_at: savedUser.created_at,
-        updated_at: savedUser.updated_at,
-      };
+      return mapResult(savedUser, access_token);
 
-      return result;
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });
       throw error;
     }
   }
 
-  async signIn(input: SignInDto): Promise<AuthResultDto> {
+  async signIn(input: SignInDto): Promise<UserResultDto> {
     const { email, password } = input;
 
     try {
@@ -83,17 +75,7 @@ export class AuthService {
         user.email,
       );
 
-      const result = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        access_token,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-      };
-
-      return result;
+      return mapResult(user, access_token);
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });
       throw error;

@@ -12,6 +12,7 @@ import { UsersRepository } from '../repository/users.repository';
 import { PaginationQueryDto } from '../dto/input/paginationQuery.input';
 import { PasswordDto } from '../dto/input/update.input';
 import { UserRole } from '../../../common/constant';
+import { mapResult } from '../../../common/mapper';
 
 @Injectable()
 export class UsersService {
@@ -42,16 +43,7 @@ export class UsersService {
     try {
       const user = await this.usersRepository.findUserById(userId);
 
-      const result: UserResultDto = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-      };
-
-      return result;
+      return mapResult(user);
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });
       throw error;
@@ -103,16 +95,7 @@ export class UsersService {
         throw new NotFoundException(`User with ID ${userId} not found`);
       }
 
-      const result: UserResultDto = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-      };
-
-      return result;
+      return mapResult(user);
     } catch (error) {
       this.logger.error({ stack: error?.stack, message: error?.message });
       throw error;
