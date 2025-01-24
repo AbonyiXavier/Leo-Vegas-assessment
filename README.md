@@ -42,7 +42,7 @@ The `User` model includes the following fields:
   "name": "John Doe",
   "email": "johndoe@example.com",
   "password": "password",
-  "role": "USER" | "ADMIN",
+  "role": "USER",  // or ADMIN
   "access_token": "..."
 }
 ```
@@ -118,7 +118,7 @@ ormconfig.ts              # Database TypeORM configuration
        "name": "John Doe",
        "email": "johndoe@example.com",
        "password": "password",
-       "role": "USER" | "ADMIN"
+       "role": "USER",  // or ADMIN
      }
      ```
    - **Response**:  
@@ -127,7 +127,7 @@ ormconfig.ts              # Database TypeORM configuration
           "id": "b61c526e-55b7-434b-8d09-ae0d776533e0",
           "name": "John Doe",
           "email": "johndoe@example.com",
-          "role": "USER" | "ADMIN",
+          "role": "USER",  // or ADMIN
           "created_at": "2021-10-10T12:00:00.000Z",
           "updated_at": "2021-10-10T12:00:00.000Z",
           "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -149,7 +149,7 @@ ormconfig.ts              # Database TypeORM configuration
           "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
           "name": "John Doe",
           "email": "johndoe@example.com",
-          "role": "USER" | "ADMIN",
+          "role": "USER",  // or ADMIN
           "created_at": "2021-10-10T12:00:00.000Z",
           "updated_at": "2021-10-10T12:00:00.000Z",
           "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -183,7 +183,7 @@ ormconfig.ts              # Database TypeORM configuration
           "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
           "name": "John Doe",
           "email": "johndoe@example.com",
-          "role": "USER" | "ADMIN",
+          "role": "USER",  // or ADMIN
           "created_at": "2021-10-10T12:00:00.000Z",
           "updated_at": "2021-10-10T12:00:00.000Z"
       }
@@ -237,7 +237,7 @@ ormconfig.ts              # Database TypeORM configuration
             "id": "732fde67-0076-4f0b-aba6-7b052975c02d",
             "name": "John Doe",
             "email": "johndoe@example.com",
-            "role": "USER" | "ADMIN",
+            "role": "USER",  // or ADMIN
             "created_at": "2021-10-10T12:00:00.000Z",
             "updated_at": "2021-10-10T12:00:00.000Z"
         }
